@@ -1,10 +1,12 @@
 pub mod day_one;
 pub mod day_two;
+pub mod day_three;
 
 use std::env;
 use std::fs;
 use day_one::*;
 use day_two::*;
+use day_three::*;
 
 
 fn main() {
@@ -56,6 +58,22 @@ fn main() {
 
             println!("Total score following correct code: {}", total);
 
+        },
+        3 => {
+            let file_path = &args[2];
+
+            let contents = fs::read_to_string(file_path)
+                .expect("Should have been able to read the file");
+
+            let map = assign_letters_numbers();
+
+            let mut priority_sum = parse_list_rucksacks(&contents, &map);
+
+            println!("The sum of the priorities of the mismatched item types are: {}", priority_sum);
+
+            priority_sum = parse_groups_rucksacks(&contents, &map);
+
+            println!("The sum of the priorities of the badges' item types are: {}", priority_sum);
         },
         _ => {
             println!("This day has not been completed yet");
