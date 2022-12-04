@@ -2,13 +2,15 @@ use std::collections::HashMap;
 
 pub fn assign_letters_numbers() -> HashMap<char, u32> {
     let mut c: u32 = 26;
-    let letters: HashMap<char, u32> = ('A'..='z').map(|letter| {
-        c += 1;
-        if letter == 'a' {
-            c = 1;
-        }
-        (letter, c)
-    }).collect();
+    let letters: HashMap<char, u32> = ('A'..='z')
+        .map(|letter| {
+            c += 1;
+            if letter == 'a' {
+                c = 1;
+            }
+            (letter, c)
+        })
+        .collect();
 
     letters
 }
@@ -55,7 +57,16 @@ pub fn parse_groups_rucksacks(list: &str, map: &HashMap<char, u32>) -> u32 {
 
     let mut count = 0;
 
-    let groups: Vec<&str> = list.split(|c| { if c == '\n' { count += 1; count % 3 == 0 } else { false } }).collect();
+    let groups: Vec<&str> = list
+        .split(|c| {
+            if c == '\n' {
+                count += 1;
+                count % 3 == 0
+            } else {
+                false
+            }
+        })
+        .collect();
 
     for group in groups {
         let rucksacks: Vec<&str> = group.split('\n').collect();
@@ -90,12 +101,11 @@ mod day_three_tests {
             count += 1;
             assert_eq!(map.get(&letter), Some(&count));
         }
- 
+
         assert_eq!(map.get(&'d'), Some(&4));
         assert_eq!(map.get(&'D'), Some(&30));
         assert_eq!(map.get(&'z'), Some(&26));
         assert_eq!(map.get(&'A'), Some(&27));
-
     }
 
     #[test]
@@ -104,7 +114,10 @@ mod day_three_tests {
 
         let midpoint = example.len() / 2;
 
-        assert_eq!(parse_rucksack(&example[..=(midpoint - 1)], &example[(midpoint)..]), 'p')
+        assert_eq!(
+            parse_rucksack(&example[..=(midpoint - 1)], &example[(midpoint)..]),
+            'p'
+        )
     }
 
     #[test]

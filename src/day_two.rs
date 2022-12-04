@@ -1,11 +1,9 @@
-#[derive(Debug)]
-#[derive(PartialEq, Eq)]
-#[derive(Copy, Clone)]
+#[derive(Debug, PartialEq, Eq, Copy, Clone)]
 pub enum HandShape {
     Rock,
     Paper,
     Scissors,
-    Invalid
+    Invalid,
 }
 
 pub enum PuzzlePart {
@@ -57,16 +55,18 @@ pub fn get_hand_shape(code: &str) -> HandShape {
 pub fn calc_points(code_line: &str, part: PuzzlePart) -> i32 {
     let opponent = get_hand_shape(&code_line[..1]);
     let player = match part {
-            PuzzlePart::One => get_hand_shape(&code_line[2..]),
-            PuzzlePart::Two => opponent.decode_hand_shape(&code_line[2..]),
+        PuzzlePart::One => get_hand_shape(&code_line[2..]),
+        PuzzlePart::Two => opponent.decode_hand_shape(&code_line[2..]),
     };
     let mut points: i32 = 0;
 
     match player {
-        HandShape::Rock => {points += 1;},
-        HandShape::Paper => {points += 2},
-        HandShape::Scissors => {points += 3},
-        _ => {},
+        HandShape::Rock => {
+            points += 1;
+        }
+        HandShape::Paper => points += 2,
+        HandShape::Scissors => points += 3,
+        _ => {}
     }
 
     if player == opponent.win_against() {
