@@ -2,11 +2,13 @@ pub mod day_four;
 pub mod day_one;
 pub mod day_three;
 pub mod day_two;
+pub mod day_five;
 
 use day_four::*;
 use day_one::*;
 use day_three::*;
 use day_two::*;
+use day_five::*;
 use std::env;
 use std::fs;
 
@@ -92,6 +94,25 @@ fn main() {
                 "There are {} assignment pairs where one range is contained at all in the other!",
                 overlaps
             );
+        }
+        5 => {
+            let list = contents.replace(&['[', ']', '\t'][..], "");
+
+            let directions: Vec<&str> = list.lines().filter(|x| x.contains("move")).collect();
+
+            let mut crates: Vec<Vec<&str>> = initialize_stacks(&list);
+
+            for v in crates.iter() {
+                println!("{:?}", v);
+            }
+
+            for l in directions.iter() {
+                move_crates(l, &mut crates);
+            }
+
+            for v in crates.iter() {
+                println!("{:?}", v);
+            }
         }
         _ => {
             println!("This day has not been completed yet");
