@@ -1,14 +1,14 @@
+pub mod day_five;
 pub mod day_four;
 pub mod day_one;
 pub mod day_three;
 pub mod day_two;
-pub mod day_five;
 
+use day_five::*;
 use day_four::*;
 use day_one::*;
 use day_three::*;
 use day_two::*;
-use day_five::*;
 use std::env;
 use std::fs;
 
@@ -96,12 +96,12 @@ fn main() {
             );
         }
         5 => {
-            let list = contents.replace(&['[', ']', '\t'][..], "");
+            let list = contents.replace(&['[', ']'][..], " ");
 
             let directions: Vec<&str> = list.lines().filter(|x| x.contains("move")).collect();
 
             let mut crates: Vec<Vec<&str>> = initialize_stacks(&list);
-
+            println!("before moving single crates at time:");
             for v in crates.iter() {
                 println!("{:?}", v);
             }
@@ -110,6 +110,21 @@ fn main() {
                 move_crates(l, &mut crates);
             }
 
+            println!("after moving single crates at time:");
+
+            for v in crates.iter() {
+                println!("{:?}", v);
+            }
+
+            crates = initialize_stacks(&list);
+            println!("before moving many stacks at time:");
+            for v in crates.iter() {
+                println!("{:?}", v);
+            }
+            for l in directions.iter() {
+                move_mult_crates(l, &mut crates);
+            }
+            println!("after moving many stacks at time:");
             for v in crates.iter() {
                 println!("{:?}", v);
             }
