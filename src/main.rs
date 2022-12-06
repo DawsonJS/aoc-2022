@@ -1,12 +1,14 @@
 pub mod day_five;
 pub mod day_four;
 pub mod day_one;
+pub mod day_six;
 pub mod day_three;
 pub mod day_two;
 
 use day_five::*;
 use day_four::*;
 use day_one::*;
+use day_six::*;
 use day_three::*;
 use day_two::*;
 use std::env;
@@ -128,6 +130,15 @@ fn main() {
             for v in crates.iter() {
                 println!("{:?}", v);
             }
+        }
+        6 => {
+            let mut marker: i32 = start_stream(&contents);
+
+            println!("The first marker is after character {}", marker);
+
+            marker = start_message(&contents);
+
+            println!("The first message marker is after character {}", marker);
         }
         _ => {
             println!("This day has not been completed yet");
